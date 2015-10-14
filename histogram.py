@@ -1,12 +1,13 @@
 import glob
+
 import matplotlib.pyplot as plt
-from numpy import histogram
 
 
 def normalize(arr):
-    rng = arr.max()-arr.min()
+    rng = arr.max() - arr.min()
     amin = arr.min()
-    return (arr-amin) * 1/rng
+    return (arr - amin) * 1 / rng
+
 
 def show_histogram(ims):
     """ Function to display image histogram. 
@@ -26,7 +27,7 @@ def show_histogram(ims):
         img = normalize(image[..., 1])
         fig.add_subplot(len(ims), width, (i * width) + 3)
         plt.imshow(img)
-        fig.add_subplot(len(ims), width, (i * width) + width -1)
+        fig.add_subplot(len(ims), width, (i * width) + width - 1)
         plt.hist(img.flatten(), bins, range=(0, 1))
         img = normalize(image[..., 2])
         fig.add_subplot(len(ims), width, (i * width) + 4)
@@ -36,17 +37,17 @@ def show_histogram(ims):
         print(f)
     plt.show()
 
+
 if __name__ == '__main__':
     files = glob.glob('images/*.jpg')
     images = [plt.imread(f) for f in files]
-    for i, image in enumerate(range):
-        channel = image[..., 0]
-        hist = histogram(normalize(channel.flatten()), bins=16)
-        normalized_histogram = hist[0] / hist[0].sum()
-        sum = hist[0].sum()
-        threshold = sum * 0.4
-        if hist[0][:4].sum() > threshold:
-            print(files[i])
+    # for i, image in enumerate(images):
+    #     channel = image[..., 0]
+    #     hist = histogram(normalize(channel.flatten()), bins=16)
+    #     normalized_histogram = hist[0] / hist[0].sum()
+    #     sum = hist[0].sum()
+    #     threshold = sum * 0.4
+    #     if hist[0][:4].sum() > threshold:
+    #         print(files[i])
 
-    #import ipdb;ipdb.set_trace()
-    #show_histogram(images)
+    show_histogram(images)
