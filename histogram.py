@@ -8,6 +8,7 @@ def normalize(arr):
     amin = arr.min()
     return (arr-amin) * 1/rng
 
+
 def show_histogram(ims):
     """ Function to display image histogram. 
         Supports single and three channel images. """
@@ -26,7 +27,7 @@ def show_histogram(ims):
         img = normalize(image[..., 1])
         fig.add_subplot(len(ims), width, (i * width) + 3)
         plt.imshow(img)
-        fig.add_subplot(len(ims), width, (i * width) + width -1)
+        fig.add_subplot(len(ims), width, (i * width) + width - 1)
         plt.hist(img.flatten(), bins, range=(0, 1))
         img = normalize(image[..., 2])
         fig.add_subplot(len(ims), width, (i * width) + 4)
@@ -39,10 +40,13 @@ def show_histogram(ims):
 if __name__ == '__main__':
     files = glob.glob('images/*.jpg')
     images = [plt.imread(f) for f in files]
-    # for image in images:
+    # for i, image in enumerate(images):
     #     channel = image[..., 0]
-    #     hist = histogram(normalize(channel.flatten()), bins=4)
-    #     import ipdb;ipdb.set_trace()
+    #     hist = histogram(normalize(channel.flatten()), bins=16)
+    #     normalized_histogram = hist[0] / hist[0].sum()
+    #     sum = hist[0].sum()
+    #     threshold = sum * 0.4
+    #     if hist[0][:4].sum() > threshold:
+    #         print(files[i])
 
-    #import ipdb;ipdb.set_trace()
     show_histogram(images)
